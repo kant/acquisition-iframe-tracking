@@ -1,0 +1,26 @@
+{
+  "name": "acquisitions-iframe-utils",
+  "version": "0.0.1",
+  "description": "Helpers for iframes used in the context of acquisitions",
+  "main": "index.js",
+  "author": "Guy Dawson",
+  "license": "MIT",
+  "dependencies": {
+    "url-polyfill": "^1.0.8"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "flow-bin": "^0.59.0",
+    "script-loader": "^0.7.2",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.5"
+  },
+  "scripts": {
+    "build": "webpack -p",
+    "start": "webpack-dev-server -d"
+  }
+}
