@@ -75,13 +75,13 @@ function deserializeEventData(event: MessageEvent): ?Object {
     }
 }
 
-function requestReferrerDataFromParent() {
-    const message = { 
-        type:  REFERRER_ACQUISITION_DATA_REQUEST,
-        name: window.name,
-    };
+function requestReferrerDataFromParent(): void {
+    const message = { type:  REFERRER_ACQUISITION_DATA_REQUEST };
     window.parent.postMessage(JSON.stringify(message), '*');
     window.addEventListener('message', function(event) {
+        if (event.source !== window.parent) {
+            return;
+        }
         const data = deserializeEventData(event);
         if (data && data.type === REFERRER_ACQUISITION_DATA_RESPONSE) {
             upsertAcquisitionDataInUrls(data.referrerData);
@@ -115,7 +115,7 @@ export function respondToReferrerDataRequests(
     getIframeElements: MessageEvent => HTMLIFrameElement[],
     getReferrerData: void => ReferrerData
 ): void {
-    window.addEventListener('message', function(event) {
+    window.addEventListener('message', function(event: MessageEvent) {
         const data = deserializeEventData(event)
         if (data && data.type === REFERRER_ACQUISITION_DATA_REQUEST) {
             getIframeElements(event).forEach(el => {
@@ -129,9 +129,9 @@ export function respondToReferrerDataRequests(
     })
 }
 
-export function getIframeElementsBySrc(event: MessageEvent) {
+export function getIframeElementsBySrc(event: MessageEvent): HTMLIFrameElement[] {
     const href = event.source.location.href;
-    return [...document.getElementsByTagName('iframe')].filter( el =>
+    return [...document.getElementsByTagName('iframe')].filter(el =>
          el.getAttribute('src') === href
     );
 }
