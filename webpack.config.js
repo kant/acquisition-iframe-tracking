@@ -1,15 +1,9 @@
-
 const path = require('path');
 const version = require('./package.json').version
 
 module.exports = {
     entry: {
         index: './index.js',
-    },
-    output: {
-        path: path.resolve(__dirname, 'build', version),
-        filename: './index.bundle.js',
-        library: "Acquisitions",
     },
     module: {
         rules: [
@@ -21,5 +15,13 @@ module.exports = {
                 }
             },
         ]
+    },
+    output: {
+        path: path.resolve(__dirname, 'build', version),
+        filename: './index.bundle.js',
+        library: 'Acquisitions',
+    },
+    devServer: {
+        contentBase: path.resolve(__dirname, 'example'),
     }
 }

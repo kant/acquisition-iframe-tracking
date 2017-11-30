@@ -6,9 +6,29 @@ The latest version is available at:
 
 `https://interactive.guim.co.uk/libs/acquisition-iframe-tracking/0.0.1/index.bundle.js`
 
+## Example
+
 The file `example/embed.html` demonstrates how the package should be used in an embed.
 
 Couple of things to note in this example:
 - always include a `<head>` element
 - always include the `js-acquisition-link` class in links that you want to be enriched
 - always call `Acquisitions.enrichLinks()` at the end of the HTML body
+
+## Development
+
+To run the dev server:
+
+```
+yarn run start
+```
+
+Then navigate to `http://localhost:8080/index.html` to see changes in tracking propogate automatically.
+
+## Deployment
+
+To deploy the current version of the package:
+
+```
+./deploy.sh
+```
