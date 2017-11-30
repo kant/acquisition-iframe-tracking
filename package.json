@@ -18,8 +18,7 @@
     "webpack-dev-server": "^2.9.5"
   },
   "scripts": {
-    "build-dev": "webpack -p --env=dev",
-    "build-prod": "webpack -p --env=prod",
-    "start-dev-server": "webpack-dev-server -d --env=dev"
+    "build": "webpack -p",
+    "start": "webpack-dev-server -d"
   }
 }

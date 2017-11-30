@@ -1,6 +1,6 @@
 cd "$(dirname "$0")"
 
-yarn run build-prod
+yarn run build
 
 aws s3 cp \
     --recursive ./build/ \
