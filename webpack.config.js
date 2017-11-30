@@ -4,7 +4,7 @@ module.exports = {
         index: './index.js',
     },
     output: {
-        filename: './[name].bundle.js',
+        filename: './index.bundle.js',
         library: "Acquisitions",
     },
     module: {
