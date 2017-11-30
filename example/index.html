@@ -1,17 +1,17 @@
 <head></head>
 
 <body>
-    <script src="https://interactive.guim.co.uk/libs/acquisition-iframe-tracking/0.0.1/index.bundle.js"></script>
+    <script src="http://localhost:8080/index.bundle.js"></script>
     <script>
         Acquisitions.respondToReferrerDataRequests(
             Acquisitions.getIframeElementsBySrc, 
             function() {
                 return {
                     referrerPageviewId: 'test_page_view_id',
-                    referrerUrl: 'test_url'
+                    referrerUrl: 'test_url',
                 }
             }
         )
     </script>
-    <iframe src="./embed.html"></iframe>
+    <iframe src="http://localhost:8080/embed.html"></iframe>
 </body>

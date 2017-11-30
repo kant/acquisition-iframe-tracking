@@ -12,3 +12,13 @@ Couple of things to note in this example:
 - always include a `<head>` element
 - always include the `js-acquisition-link` class in links that you want to be enriched
 - always call `Acquisitions.enrichLinks()` at the end of the HTML body
+
+## Development
+
+To run the dev server:
+
+```
+yarn run start-dev-server
+```
+
+Then navigate to `http://localhost:8080/index.html` to see changes in tracking propogate automatically.
