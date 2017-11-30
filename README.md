@@ -20,7 +20,7 @@ Couple of things to note in this example:
 To run the dev server:
 
 ```
-yarn run start-dev-server
+yarn run start
 ```
 
 Then navigate to `http://localhost:8080/index.html` to see changes in tracking propogate automatically.
