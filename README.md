@@ -6,6 +6,8 @@ The latest version is available at:
 
 `https://interactive.guim.co.uk/libs/acquisition-iframe-tracking/0.0.1/index.bundle.js`
 
+## Example
+
 The file `example/embed.html` demonstrates how the package should be used in an embed.
 
 Couple of things to note in this example:
@@ -22,3 +24,11 @@ yarn run start-dev-server
 ```
 
 Then navigate to `http://localhost:8080/index.html` to see changes in tracking propogate automatically.
+
+## Deployment
+
+To deploy the current version of the package:
+
+```
+./deploy.sh
+```
