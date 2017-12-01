@@ -1,6 +1,6 @@
 {
   "name": "acquisitions-iframe-utils",
-  "version": "0.0.1",
+  "version": "0.0.2-SNAPSHOT",
   "description": "Helpers for iframes used in the context of acquisitions",
   "main": "index.js",
   "author": "Guy Dawson",

@@ -13,17 +13,25 @@ export const sources = {
     GUARDIAN_WEB: 'GUARDIAN_WEB'
 }
 
-type ReferrerAcquisitionData = {
+type InitialAcquisitionData = {
     componentId: ?string,
     componentType: ?ComponentType,
-    source: ?Source,
     campaignCode: ?string,
+    source: ?Source,
+}
+
+type ParentAcquisitionData = {
+    source: ?Source,
     referrerUrl: ?string,
     referrerPageviewId: ?string,
 }
 
-const REFERRER_ACQUISITION_DATA_REQUEST = 'referrer-acquisition-data-request';
-const REFERRER_ACQUISITION_DATA_RESPONSE = 'referrer-acquisition-data-response';
+// Source may be provided initially e.g. if the component is being used in an email
+// or provided by the parent e.g. the component is being embedded in the Guardian website and webviews on App
+type ReferrerAcquisitionData = InitialAcquisitionData & ParentAcquisitionData;
+
+const PARENT_DATA_REQUEST = 'acquisition-data-request';
+const PARENT_DATA_RESPONSE = 'acquisition-data-response';
 const ACQUISITION_DATA_QUERY_STRING_FIELD = 'acquisitionData';
 const ACQUISITION_LINK_CLASS = 'js-acquisition-link';
 
@@ -75,16 +83,16 @@ function deserializeEventData(event: MessageEvent): ?Object {
     }
 }
 
-function requestReferrerDataFromParent(): void {
-    const message = { type:  REFERRER_ACQUISITION_DATA_REQUEST };
+function requestParentAcquisitionData(): void {
+    const message = { type:  PARENT_DATA_REQUEST };
     window.parent.postMessage(JSON.stringify(message), '*');
     window.addEventListener('message', function(event) {
         if (event.source !== window.parent) {
             return;
         }
         const data = deserializeEventData(event);
-        if (data && data.type === REFERRER_ACQUISITION_DATA_RESPONSE) {
-            upsertAcquisitionDataInUrls(data.referrerData);
+        if (data && data.type === PARENT_DATA_RESPONSE) {
+            upsertAcquisitionDataInUrls(data.acquisitionData);
         }
     })
 }
@@ -102,26 +110,21 @@ export function enrichLinks(data: ReferrerAcquisitionData): void {
     initPolyfill();
     upsertAcquisitionDataInUrls(data);
     if (isInIframe()) {
-        requestReferrerDataFromParent();
+        requestParentAcquisitionData();
     }
 }
 
-type ReferrerData = {
-    referrerPageviewId: ?string,
-    referrerUrl: string,
-}
-
-export function respondToReferrerDataRequests(
+export function respondToIFrameRequest(
     getIframeElements: MessageEvent => HTMLIFrameElement[],
-    getReferrerData: void => ReferrerData
+    getParentAcquisitionData: void => ParentAcquisitionData
 ): void {
     window.addEventListener('message', function(event: MessageEvent) {
         const data = deserializeEventData(event)
-        if (data && data.type === REFERRER_ACQUISITION_DATA_REQUEST) {
+        if (data && data.type === PARENT_DATA_REQUEST) {
             getIframeElements(event).forEach(el => {
                 const message = {
-                    type: REFERRER_ACQUISITION_DATA_RESPONSE,
-                    referrerData: getReferrerData()
+                    type: PARENT_DATA_RESPONSE,
+                    acquisitionData: getParentAcquisitionData()
                 }
                 el.contentWindow.postMessage(JSON.stringify(message), '*')
             })

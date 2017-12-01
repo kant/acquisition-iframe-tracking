@@ -3,10 +3,11 @@
 <body>
     <script src="http://localhost:8080/index.bundle.js"></script>
     <script>
-        Acquisitions.respondToReferrerDataRequests(
+        Acquisitions.respondToIFrameRequest(
             Acquisitions.getIframeElementsBySrc, 
             function() {
                 return {
+                    source: Acquisitions.sources.GUARDIAN_WEB,
                     referrerPageviewId: 'test_page_view_id',
                     referrerUrl: 'test_url',
                 }
