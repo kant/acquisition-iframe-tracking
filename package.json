@@ -19,6 +19,6 @@
   },
   "scripts": {
     "build": "webpack -p",
-    "start": "webpack-dev-server -d"
+    "start": "webpack-dev-server -d --port 8080"
   }
 }
